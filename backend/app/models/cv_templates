@@ -1,0 +1,26 @@
+import uuid
+from datetime import datetime
+
+from sqlalchemy import Column, String, DateTime, Boolean, JSON
+from sqlalchemy.dialects.postgresql import UUID
+
+from app.core.database import Base
+
+
+class CVTemplate(Base):
+    __tablename__ = "cv_templates"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+
+    name = Column(String, nullable=False)
+
+    description = Column(String, nullable=True)
+
+    thumbnail_url = Column(String, nullable=True)
+
+    # IMPORTANT: stores layout structure (sections, fonts, spacing, etc.)
+    layout_config = Column(JSON, nullable=False)
+
+    is_active = Column(Boolean, default=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)

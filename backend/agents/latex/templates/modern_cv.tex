@@ -1,0 +1,68 @@
+\documentclass[white,10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% Define colors
+\definecolor{primary}{HTML}{2D3E50}
+\definecolor{accent}{HTML}{E67E22}
+
+% Styles
+\titleformat{\section}{\large\fontseries{b}\selectfont\color{primary}}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{12pt}{8pt}
+
+\pagestyle{empty}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+\begin{document}
+
+% Header
+\begin{center}
+    {\Huge \textbf{\VAR{profile.full_name | latex_escape}}} \\
+    \vspace{2mm}
+    {\color{primary} \VAR{profile.email | latex_escape} | \VAR{profile.phone | latex_escape} | \VAR{profile.location | latex_escape}} \\
+    \vspace{1mm}
+    {\small \VAR{profile.linkedin_url | latex_escape} | \VAR{profile.github_url | latex_escape}}
+\end{center}
+
+% Summary
+\BLOCK{if profile.summary}
+\section*{Summary}
+\VAR{profile.summary | latex_escape}
+\BLOCK{endif}
+
+% Experience
+\BLOCK{if work_experiences}
+\section*{Work Experience}
+\BLOCK{for exp in work_experiences}
+\textbf{\VAR{exp.job_title | latex_escape}} \hfill \VAR{exp.start_date} -- \VAR{exp.end_date if exp.end_date else 'Present'} \\
+\textit{\VAR{exp.company_name | latex_escape}, \VAR{exp.location | latex_escape}}
+\begin{itemize}
+    \item \VAR{exp.description | latex_escape}
+\end{itemize}
+\vspace{2mm}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+% Education
+\BLOCK{if educations}
+\section*{Education}
+\BLOCK{for edu in educations}
+\textbf{\VAR{edu.degree | latex_escape} in \VAR{edu.field_of_study | latex_escape}} \hfill \VAR{edu.start_date} -- \VAR{edu.end_date if edu.end_date else 'Present'} \\
+\textit{\VAR{edu.school_name | latex_escape}, \VAR{edu.location | latex_escape}} \\
+\BLOCK{endfor}
+\BLOCK{endif}
+
+% Skills
+\BLOCK{if skills}
+\section*{Skills}
+\BLOCK{for skill in skills}
+\textbf{\VAR{skill.name | latex_escape}} (\VAR{skill.level | latex_escape})\BLOCK{if not loop.last}, \BLOCK{endif}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+\end{document}
