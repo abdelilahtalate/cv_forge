@@ -55,8 +55,6 @@ function ChatWelcome({ onPrompt }: { onPrompt: (text: string) => void }) {
     </div>
   )
 }
-
-import MessageBubble from '@/chat/MessageBubble'
 import { CVPreviewPanel } from '@/components/CVPreviewPanel'
 import { useCVStore } from '@/store/cvStore'
 

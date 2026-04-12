@@ -42,7 +42,7 @@ function BubbleContent({ text, showCursor }: { text: string; showCursor: boolean
 }
 
 import { useCVStore } from '@/store/cvStore'
-import { FileText, Eye, Download } from 'lucide-react'
+import { Eye } from 'lucide-react'
 
 export default function MessageBubble({ message, onTypingComplete }: Props) {
   const isUser = message.role === 'user'

@@ -14,7 +14,7 @@ export function useChat() {
     setTyping 
   } = useChatStore()
   
-  const { setShowCVPreview, setActiveView } = useCVStore()
+  const { setActiveView } = useCVStore()
   const { settings } = useSettingsStore()
 
   const loadMessages = useCallback(
